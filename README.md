@@ -1,7 +1,6 @@
 # portfolio
 
-Projects showcase for theogalh.dev — plain static HTML, served by GitHub Pages at
-https://theogalh.github.io/portfolio/
+Projects showcase for theogalh.dev — plain static HTML.
 
 Styling comes from the hosted design system
 (`https://theogalh.github.io/design-system/styles.css`); page-specific rules live in
@@ -16,10 +15,10 @@ assets/site.css             page-specific CSS shared by every page
 assets/site.js              mobile drawer + copy-to-clipboard
 assets/avatar.webp          hero illustration
 .nojekyll                   serve the files as-is
-.github/workflows/pages.yml deploy on push to main
 ```
 
-There is no build step. Each page is self-contained HTML: edit it, reload, done.
+There is no build step and no CI here: the repo *is* the site. Serving it is handled
+externally, from the files as they are committed.
 
 ## Preview locally
 
@@ -32,7 +31,3 @@ python3 -m http.server 8080
 1. Copy an existing page: `cp projects/ytp.html projects/newthing.html`.
 2. Edit the title, breadcrumb, footer and sections.
 3. Add a card to the `.apps-grid` in `index.html`, pointing at `projects/newthing.html`.
-
-## Deploy
-
-Settings → Pages → Source: **GitHub Actions**. Every push to `main` republishes the site.
