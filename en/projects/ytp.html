@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ytp — theogalh.dev</title>
+  <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="alternate" hreflang="fr" href="../../projects/ytp.html">
+  <link rel="alternate" hreflang="en" href="ytp.html">
+  <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <span class="langsw"><a href="../../projects/ytp.html" hreflang="fr">FR</a><span class="on">EN</span></span>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<main class="admin-wrap">
+  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">ytp</span></div>
+  <div class="page-head">
+    <p class="eyebrow">theogalh.dev · project · 03</p>
+    <h1 class="display">Paste a URL. Pick a format. Download.</h1>
+    <p class="sub">A video downloader with trimming, live progress, and an MCP server so an assistant can use it too.</p>
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://ytp.theogalh.dev">Open ytp.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/ytp-downloader">Repository</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="stats-grid stagger">
+      <div class="stat-card anim-rise"><div class="stat-label">Formats</div><div class="stat-value">4</div><div class="stat-delta muted">mp3 · m4a · mp4 · webm</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Progress</div><div class="stat-value">SSE</div><div class="stat-delta muted">500 ms refresh</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Rate limits</div><div class="stat-value">20 / 10</div><div class="stat-delta muted">info · downloads per min</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Agent</div><div class="stat-value">MCP</div><div class="stat-delta muted">3 tools</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What it does</h2>
+    <p class="muted" style="margin-bottom:16px">Most downloaders make you wait on a spinner and give you the whole file. ytp analyses the URL first, lets you choose audio or video and a segment, runs the job in the background and tells you when the file is ready. The same engine is exposed to Claude through MCP.</p>
+    <div class="feature-list">
+      <div class="feature"><h3>Analyse first</h3><p>Paste a URL and get the title, duration and available formats before committing to a download.</p></div>
+      <div class="feature"><h3>Audio or video</h3><p>mp3 and m4a for audio, mp4 and webm for video. The format id comes straight from the analysis.</p></div>
+      <div class="feature"><h3>Trim</h3><p>Set a start and an end time to keep only the part you want. The cut happens server-side.</p></div>
+      <div class="feature"><h3>Live progress</h3><p>The page subscribes to the job and updates until the file is ready or the job fails.</p></div>
+      <div class="feature"><h3>From an assistant</h3><p>Three MCP tools: get info for a plain download, open the trim editor to choose, download and get a URL back.</p></div>
+      <div class="feature"><h3>Cleaned up</h3><p>Files live under the job id and are removed after retention. A vanished file is reported as such, not as an error.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">A download, step by step</h2>
+    <div class="flow">
+      <div class="step"><span class="mono">POST /api/videos/info</span> with the URL.</div>
+      <div class="step">Choose a format id, optionally start and end.</div>
+      <div class="step"><span class="mono">POST /api/downloads</span> returns <span class="mono">202</span> and a job id.</div>
+      <div class="step">The worker runs yt-dlp (and ffmpeg for trims) and updates the job in Redis.</div>
+      <div class="step">The page follows <span class="mono">/events</span> until status is ready or failed.</div>
+      <div class="step"><span class="mono">GET /file</span> streams the result with the right media type.</div>
+    </div>
+  </section>
+
+  <div class="hairline" style="margin:36px 0"></div>
+  <p class="eyebrow">how it is built</p>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Stack</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">scaffold</div><div class="meta-value mono">theoproject --fastapi --redis</div></div>
+        <div class="meta-row"><div class="meta-label">downloader</div><div class="meta-value mono">yt-dlp · ffmpeg for trims</div></div>
+        <div class="meta-row"><div class="meta-label">jobs</div><div class="meta-value mono">job tracker in Redis · files under data/{job_id}</div></div>
+        <div class="meta-row"><div class="meta-label">live</div><div class="meta-value mono">Server-Sent Events, 500 ms poll of job state</div></div>
+        <div class="meta-row"><div class="meta-label">agent</div><div class="meta-value mono">mcp 2.x mounted on /mcp</div></div>
+        <div class="meta-row"><div class="meta-label">observability</div><div class="meta-value mono">opentelemetry-api · metrics module</div></div>
+        <div class="meta-row"><div class="meta-label">limits</div><div class="meta-value mono">slowapi, per IP</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Architecture</h2>
+      <p class="muted">Four modules on the theoproject skeleton. The MCP server calls the same services as the HTTP controllers.</p>
+      <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>app/          config · main · router · limiter
+modules/
+  videos/     POST /videos/info — yt-dlp extract_info
+  downloads/  jobs: create · status · events (SSE) · file
+  metrics/    OpenTelemetry counters
+  health/     Redis ping
+mcp/          get_video_info · open_trim_editor · download_video
+cache/        RedisClient + key builder · job tracker
+data/{job_id}/  downloaded artifacts (retention)
+web/ templates/ static/ deploy/ .github/</code></pre></div></div>
+    </div>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">Decisions</h2>
+    <ul class="decisions">
+      <li><strong>A download is a job</strong>The request returns <span class="mono">202 Accepted</span> immediately. yt-dlp never runs inside an HTTP request, so a slow source cannot tie up the app.</li>
+      <li><strong>SSE rather than WebSocket</strong>Progress only flows one way. SSE is plain HTTP, reconnects on its own, and <span class="mono">X-Accel-Buffering: no</span> keeps nginx from buffering it.</li>
+      <li><strong>410 for cleaned-up files</strong>A job that existed but whose artifact was removed answers <span class="mono">410 Gone</span>; a job that is not ready answers <span class="mono">409</span>. The client can tell the cases apart.</li>
+      <li><strong>One service layer, two front doors</strong>HTTP controllers and MCP tools both call <span class="mono">VideoService</span> and <span class="mono">DownloadService</span>. Fixing a bug fixes it for both.</li>
+      <li><strong>Rate limits at the edge of the app</strong>20/min on analysis, 10/min on downloads, per IP, enforced in the controller decorators.</li>
+    </ul>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">API</h2>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method post">POST</span></td><td>/api/videos/info</td><td>Analyse a URL: title, duration, formats · 20/min</td></tr>
+          <tr><td><span class="method post">POST</span></td><td>/api/downloads</td><td>Create a job: url, format_id, start_time, end_time → 202 · 10/min</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/downloads/{job_id}</td><td>Job status and filename</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/downloads/{job_id}/events</td><td>text/event-stream until ready or failed</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/downloads/{job_id}/file</td><td>The file · 409 not ready · 410 cleaned up</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/health</td><td>Redis ping</td></tr>
+          <tr><td><span class="method post">POST</span></td><td>/mcp</td><td>MCP server: get_video_info · open_trim_editor · download_video</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Run it</h2>
+      <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv sync
+docker run -p 6379:6379 redis:alpine
+uv run uvicorn app.main:app --reload
+<span class="c-com"># MCP client: https://ytp.theogalh.dev/mcp</span></code></pre></div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Deploy &amp; ops</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">user · dir</div><div class="meta-value mono">yd · /opt/ytp_downloader</div></div>
+        <div class="meta-row"><div class="meta-label">unit</div><div class="meta-value mono">ytp_downloader.service, port 8000</div></div>
+        <div class="meta-row"><div class="meta-label">host</div><div class="meta-value mono">ytp.theogalh.dev</div></div>
+        <div class="meta-row"><div class="meta-label">deploy</div><div class="meta-value mono">push to master → deploy.sh over SSH</div></div>
+        <div class="meta-row"><div class="meta-label">retention</div><div class="meta-value mono">job directories removed on schedule</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">theogalh.dev · ytp · dark by default</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

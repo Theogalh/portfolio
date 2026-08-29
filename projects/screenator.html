@@ -1,28 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>screenator — theogalh.dev</title>
   <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="alternate" hreflang="fr" href="screenator.html">
+  <link rel="alternate" hreflang="en" href="../en/projects/screenator.html">
   <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 <header class="topbar">
   <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
-  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projets</a><a href="../index.html#about">À propos</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <span class="langsw"><span class="on">FR</span><a href="../en/projects/screenator.html" hreflang="en">EN</a></span>
   <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <main class="admin-wrap">
-  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">screenator</span></div>
+  <div class="crumbs"><a href="../index.html">Projets</a><span class="sep">/</span><span class="current">screenator</span></div>
   <div class="page-head">
-    <p class="eyebrow">theogalh.dev · project · 01</p>
-    <h1 class="display">Guess the game from a single screenshot.</h1>
-    <p class="sub">A guessing game for people who play a lot. In Discord, or in a browser room with friends.</p>
+    <p class="eyebrow">theogalh.dev · projet · 01</p>
+    <h1 class="display">Devinez le jeu à partir d’une seule capture d’écran.</h1>
+    <p class="sub">Un jeu de devinettes pour ceux qui jouent beaucoup. Dans Discord, ou dans un salon navigateur entre amis.</p>
     <div class="action-row">
-      <a class="btn btn-primary" href="https://screenator.theogalh.dev">Open screenator.theogalh.dev</a>
-      <a class="btn btn-ghost" href="https://github.com/Theogalh/Screenator-bot">Repository</a>
+      <a class="btn btn-primary" href="https://screenator.theogalh.dev">Ouvrir screenator.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/Screenator-bot">Dépôt</a>
     </div>
   </div>
 
@@ -30,38 +33,38 @@
     <div class="stats-grid stagger">
       <div class="stat-card anim-rise"><div class="stat-label">Surfaces</div><div class="stat-value">2</div><div class="stat-delta muted">discord · web</div></div>
       <div class="stat-card anim-rise"><div class="stat-label">Services</div><div class="stat-value">3</div><div class="stat-delta muted">bot · web · playground</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Round timeout</div><div class="stat-value">12 h</div><div class="stat-delta muted">configurable 1–168</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Languages</div><div class="stat-value">2</div><div class="stat-delta muted">en · fr</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Délai par manche</div><div class="stat-value">12 h</div><div class="stat-delta muted">configurable 1–168</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Langues</div><div class="stat-value">2</div><div class="stat-delta muted">en · fr</div></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">What it does</h2>
-    <p class="muted" style="margin-bottom:16px">One player posts a screenshot of a video game. Everyone else races to name it. The first correct answer scores and picks the next screenshot. Screenator keeps the rounds, the scores and the fairness rules so the group only has to play.</p>
+    <h2 class="section-title">Ce que ça fait</h2>
+    <p class="muted" style="margin-bottom:16px">Un joueur poste la capture d’écran d’un jeu vidéo. Les autres se dépêchent de le nommer. La première bonne réponse marque le point et choisit la capture suivante. Screenator tient les manches, les scores et les règles d’équité pour que le groupe n’ait plus qu’à jouer.</p>
     <div class="feature-list">
-      <div class="feature"><h3>Discord native</h3><p>Slash commands under a configurable prefix. An admin registers a channel, starts a game, and each channel runs its own independent game with its own leaderboard.</p></div>
-      <div class="feature"><h3>Web rooms</h3><p>Create a room with an account, or join anonymously from an invite link. Live chat, live leaderboard, and the room owner can kick a player.</p></div>
-      <div class="feature"><h3>Fair rounds</h3><p>After a round with a winner, only the winner can post the next screenshot. Only the round author can declare a winner manually.</p></div>
-      <div class="feature"><h3>Forgiving answers</h3><p>Typos do not lose the round: answers above a minimum length are fuzzy-matched against the solution.</p></div>
-      <div class="feature"><h3>Timeouts</h3><p>If nobody finds the game before the per-channel timeout, the bot ends the round and reveals the answer.</p></div>
-      <div class="feature"><h3>Bilingual</h3><p>The web UI switches between English and French from the navbar.</p></div>
+      <div class="feature"><h3>Natif Discord</h3><p>Des commandes slash sous un préfixe configurable. Un admin enregistre un salon, lance une partie, et chaque salon fait tourner sa propre partie indépendante avec son propre classement.</p></div>
+      <div class="feature"><h3>Salons web</h3><p>Créez un salon avec un compte, ou rejoignez anonymement depuis un lien d’invitation. Chat en direct, classement en direct, et le propriétaire du salon peut exclure un joueur.</p></div>
+      <div class="feature"><h3>Manches équitables</h3><p>Après une manche avec un gagnant, seul le gagnant peut poster la capture suivante. Seul l’auteur de la manche peut désigner un gagnant à la main.</p></div>
+      <div class="feature"><h3>Réponses tolérantes</h3><p>Une faute de frappe ne fait pas perdre la manche : au-delà d’une longueur minimale, les réponses sont comparées à la solution de façon approchée.</p></div>
+      <div class="feature"><h3>Délais</h3><p>Si personne ne trouve le jeu avant le délai propre au salon, le bot clôt la manche et révèle la réponse.</p></div>
+      <div class="feature"><h3>Bilingue</h3><p>L’interface web bascule entre l’anglais et le français depuis la barre de navigation.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">A round, step by step</h2>
+    <h2 class="section-title">Une manche, étape par étape</h2>
     <div class="flow">
-      <div class="step">A player posts a screenshot with <span class="mono">/scr round</span> or from the room.</div>
-      <div class="step">Players type their guesses in chat.</div>
-      <div class="step">A guess is compared to the solution, exact or fuzzy.</div>
-      <div class="step">First correct guess: +1 point, round closes, winner posts next.</div>
-      <div class="step">No guess before timeout: the bot reveals the game, anyone may post next.</div>
-      <div class="step"><span class="mono">/scr stop</span> ends the game and prints the final leaderboard.</div>
+      <div class="step">Un joueur poste une capture avec <span class="mono">/scr round</span> ou depuis le salon.</div>
+      <div class="step">Les joueurs tapent leurs propositions dans le chat.</div>
+      <div class="step">Chaque proposition est comparée à la solution, exactement ou de façon approchée.</div>
+      <div class="step">Première bonne réponse : +1 point, la manche se ferme, le gagnant poste la suivante.</div>
+      <div class="step">Aucune trouvaille avant le délai : le bot révèle le jeu, n’importe qui peut poster la suivante.</div>
+      <div class="step"><span class="mono">/scr stop</span> termine la partie et affiche le classement final.</div>
     </div>
   </section>
 
   <div class="hairline" style="margin:36px 0"></div>
-  <p class="eyebrow">how it is built</p>
+  <p class="eyebrow">sous le capot</p>
 
   <section class="section split">
     <div class="panel">
@@ -78,7 +81,7 @@
     </div>
     <div class="panel">
       <h2 class="section-title">Architecture</h2>
-      <p class="muted">One package, three entry points. All three share one Redis and one storage interface.</p>
+      <p class="muted">Un paquet, trois points d’entrée. Les trois partagent un même Redis et une même interface de stockage.</p>
       <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>screenator/
   bot/          discord.py cogs, slash commands
   web/          FastAPI app, WebSocket rooms
@@ -93,21 +96,21 @@ deploy/
   </section>
 
   <section class="section panel">
-    <h2 class="section-title">Decisions</h2>
+    <h2 class="section-title">Décisions</h2>
     <ul class="decisions">
-      <li><strong>One storage interface, typed DTOs</strong>Game logic only sees <span class="mono">StorageInterface</span> and dataclasses. Redis is the current backend; SQLite or Postgres can replace it without touching a command handler.</li>
-      <li><strong>Three services, one codebase</strong>Bot, web app and playground are separate systemd units on the same repo. They deploy together and share configuration.</li>
-      <li><strong>Anonymous players are first-class</strong>An invite token creates a <span class="mono">name#1234</span> identity; a session-sync id moves it between devices. Logged-in players recover their rooms server-side.</li>
-      <li><strong>The bucket is never public</strong>Images are served through proxy tokens with their own TTL. Scaleway credentials also accept the native env aliases.</li>
-      <li><strong>Same check locally and in CI</strong><span class="mono">make check</span> runs formatting, lint, types and tests. CI runs it plus a web smoke import, then deploys on push to master.</li>
+      <li><strong>Une interface de stockage, des DTO typés</strong>La logique de jeu ne voit que <span class="mono">StorageInterface</span> et des dataclasses. Redis est le backend actuel ; SQLite ou Postgres peut le remplacer sans toucher à un seul gestionnaire de commande.</li>
+      <li><strong>Trois services, une base de code</strong>Le bot, l’application web et le playground sont des unités systemd distinctes sur le même dépôt. Ils se déploient ensemble et partagent la configuration.</li>
+      <li><strong>Les joueurs anonymes sont de plein droit</strong>Un jeton d’invitation crée une identité <span class="mono">name#1234</span> ; un identifiant de synchronisation la transporte d’un appareil à l’autre. Les joueurs connectés retrouvent leurs salons côté serveur.</li>
+      <li><strong>Le bucket n’est jamais public</strong>Les images sont servies via des jetons de proxy avec leur propre TTL. Les identifiants Scaleway acceptent aussi les alias d’environnement natifs.</li>
+      <li><strong>Le même contrôle en local et en CI</strong><span class="mono">make check</span> lance le formatage, le lint, les types et les tests. La CI l’exécute plus un import de fumée côté web, puis déploie au push sur master.</li>
     </ul>
   </section>
 
   <section class="section panel">
-    <h2 class="section-title">Commands</h2>
+    <h2 class="section-title">Commandes</h2>
     <div class="ledger-scroll">
       <table class="ledger">
-        <thead><tr><th>Command</th><th>Who</th><th>What it does</th></tr></thead>
+        <thead><tr><th>Commande</th><th>Qui</th><th>Ce que ça fait</th></tr></thead>
         <tbody>
           <tr><td><span class="mono">/scr setup [timeout_hours]</span></td><td>admin</td><td>Register the current channel as a game channel</td></tr>
           <tr><td><span class="mono">/scr start</span></td><td>admin</td><td>Start a new game in the channel</td></tr>
@@ -122,7 +125,7 @@ deploy/
 
   <section class="section split">
     <div class="panel">
-      <h2 class="section-title">Run it</h2>
+      <h2 class="section-title">Le lancer</h2>
       <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv sync
 cp .env.example .env          <span class="c-com"># DISCORD_TOKEN, REDIS_URL</span>
 uv run screenator             <span class="c-com"># discord bot</span>
@@ -130,7 +133,7 @@ uv run screenator-web         <span class="c-com"># web app on :8000</span>
 make check</code></pre></div>
     </div>
     <div class="panel">
-      <h2 class="section-title">Deploy &amp; ops</h2>
+      <h2 class="section-title">Déploiement &amp; ops</h2>
       <div class="meta-grid">
         <div class="meta-row"><div class="meta-label">units</div><div class="meta-value mono">screenator · screenator-web · screenator-playground</div></div>
         <div class="meta-row"><div class="meta-label">proxy</div><div class="meta-value mono">nginx, websocket upgrade</div></div>
@@ -142,7 +145,7 @@ make check</code></pre></div>
     </div>
   </section>
 </main>
-<footer class="footer">theogalh.dev · screenator · dark by default</footer>
+<footer class="footer">theogalh.dev · screenator · sombre par défaut</footer>
 <script src="../assets/site.js" defer></script>
 </body>
 </html>

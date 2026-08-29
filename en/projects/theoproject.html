@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>theoproject — theogalh.dev</title>
+  <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="alternate" hreflang="fr" href="../../projects/theoproject.html">
+  <link rel="alternate" hreflang="en" href="theoproject.html">
+  <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <span class="langsw"><a href="../../projects/theoproject.html" hreflang="fr">FR</a><span class="on">EN</span></span>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<main class="admin-wrap">
+  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">theoproject</span></div>
+  <div class="page-head">
+    <p class="eyebrow">theogalh.dev · project · 04</p>
+    <h1 class="display">One command. A project that already knows how to ship.</h1>
+    <p class="sub">The CLI that scaffolds every project on this site: layout, CI/CD, systemd, nginx, and a Claude Code harness.</p>
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://github.com/Theogalh/theoproject">Repository</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="stats-grid stagger">
+      <div class="stat-card anim-rise"><div class="stat-label">Flavors</div><div class="stat-value">3</div><div class="stat-delta muted">simple · cli · fastapi</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Overlays</div><div class="stat-value">3</div><div class="stat-delta muted">redis · sql · design</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Snippets</div><div class="stat-value">2</div><div class="stat-delta muted">smtp · storage</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Secrets to set</div><div class="stat-value">4</div><div class="stat-delta muted">SSH only</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What it does</h2>
+    <p class="muted" style="margin-bottom:16px">Every side project used to start with the same evening of setup: layout, settings, Redis client, health check, a deploy script, a workflow. theoproject makes that a single command, and keeps the result consistent across projects so moving between them costs nothing.</p>
+    <div class="feature-list">
+      <div class="feature"><h3>Three flavors</h3><p>A plain Python package, an installable Click CLI with plugin discovery, or a full layered FastAPI app with SSR.</p></div>
+      <div class="feature"><h3>Storage overlays</h3><p>Add Redis, SQLite or both. Each brings a client, its settings and a storage-backed health check.</p></div>
+      <div class="feature"><h3>Deploy layer</h3><p>The FastAPI flavor ships a systemd unit, an nginx config, a setup script for a fresh LXC and a deploy script for every push.</p></div>
+      <div class="feature"><h3>Versioned snippets</h3><p>Reusable modules (SMTP email, S3 file storage) pulled from GitHub tags, pinned in a lockfile, updated on demand.</p></div>
+      <div class="feature"><h3>Claude Code harness</h3><p>Every project ships <span class="mono">.claude/</span>: commands, subagents, skills and example hooks, layered per flavor.</p></div>
+      <div class="feature"><h3>Design tokens</h3><p><span class="mono">--design</span> adds the shared tokens, components and base template so the UI matches the rest.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">From empty folder to first deploy</h2>
+    <div class="flow">
+      <div class="step"><span class="mono">uv tool install</span> the CLI once.</div>
+      <div class="step"><span class="mono">theoproject create &lt;name&gt; --fastapi --redis</span> in an empty folder.</div>
+      <div class="step">Set four SSH secrets on the GitHub repo.</div>
+      <div class="step">Run <span class="mono">deploy/setup.sh</span> once on the LXC as root.</div>
+      <div class="step">Push to main: check job, then deploy job over SSH.</div>
+      <div class="step">Add snippets as needed: <span class="mono">theoproject add smtp</span>.</div>
+    </div>
+  </section>
+
+  <div class="hairline" style="margin:36px 0"></div>
+  <p class="eyebrow">how it is built</p>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Stack</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">cli</div><div class="meta-value mono">Python · Click · installed with uv tool</div></div>
+        <div class="meta-row"><div class="meta-label">templates</div><div class="meta-value mono">layered dirs: base · web · simple · fastapi · cli</div></div>
+        <div class="meta-row"><div class="meta-label">placeholders</div><div class="meta-value mono">APPNAME · APPUSER · APPDIR · DOMAIN</div></div>
+        <div class="meta-row"><div class="meta-label">snippets</div><div class="meta-value mono">GitHub tags (smtp/1.1.0) · .snippets.toml lock · PAT in ~/.config</div></div>
+        <div class="meta-row"><div class="meta-label">release</div><div class="meta-value mono">pre-commit hook: src change ⇒ version bump; theoproject release</div></div>
+        <div class="meta-row"><div class="meta-label">docs</div><div class="meta-value mono">ADRs in docs/adr, backlogs, plans</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Architecture</h2>
+      <p class="muted">Templates are directories merged in order. A flavor is the base plus its layer; the web layer is added for --fastapi.</p>
+      <div class="tree"><div class="code-block"><div class="code-head">templates</div><pre><code>theoproject/
+  templates/           base: .claude/ harness, ADR scaffolding, .gitignore
+  templates_web/       --fastapi only: deploy/, systemd, nginx, deploy.yml
+  templates_simple/    pure-Python package
+  templates_fastapi/   modules, storage interface, web SSR
+  templates_cli/       Click group, plugin loader, 4-layer modules
+  snippets/
+    smtp/    snippet.toml · src/
+    storage/ snippet.toml · src/
+  cli.py               create · cli new · add · update · list · release</code></pre></div></div>
+    </div>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">Decisions</h2>
+    <ul class="decisions">
+      <li><strong>Layers, not forks</strong>A flavor never copies another flavor. Fixing the base fixes every generated project going forward.</li>
+      <li><strong>One storage contract</strong>Every overlay implements <span class="mono">StorageInterface</span> (close, ping). Two overlays give a combined <span class="mono">/health</span> for free.</li>
+      <li><strong>Snippets are released, not pasted</strong>A snippet lives in this repo, is tagged per version, and lands in a project's <span class="mono">theolib/</span> with its dependencies merged into pyproject. The lockfile is committed.</li>
+      <li><strong>The hook enforces the bump</strong>A pre-commit hook refuses a change under <span class="mono">src/</span> without a new version in <span class="mono">snippet.toml</span>, and refuses a version that already exists as a tag.</li>
+      <li><strong>Minimal deploy surface</strong>One workflow, four SSH secrets. The server pulls, syncs, restarts and checks health. Nothing else to configure.</li>
+      <li><strong>Settled next steps</strong>Pluggable SSO through an OIDC broker, a runtime contract per deploy tier, and a bug-report library are decided directions, not shipped features.</li>
+    </ul>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">Commands</h2>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <thead><tr><th>Command</th><th>Scope</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mono">theoproject create &lt;name&gt; [--fastapi|--cli] [--redis] [--sql] [--design]</span></td><td>new project</td><td>Scaffold the chosen flavor and overlays</td></tr>
+          <tr><td><span class="mono">theoproject cli new &lt;module&gt;</span></td><td>--cli project</td><td>Add a 4-layer module</td></tr>
+          <tr><td><span class="mono">theoproject github-login / github-logout</span></td><td>machine</td><td>Store or remove the PAT used for snippets</td></tr>
+          <tr><td><span class="mono">theoproject list</span></td><td>project</td><td>Available snippets and installed versions (offline)</td></tr>
+          <tr><td><span class="mono">theoproject add &lt;snippet&gt; [--force]</span></td><td>project</td><td>Install a snippet at latest</td></tr>
+          <tr><td><span class="mono">theoproject update &lt;snippet&gt; [--version x.y.z]</span></td><td>project</td><td>Update or pin</td></tr>
+          <tr><td><span class="mono">theoproject install-hooks</span></td><td>this repo</td><td>Pre-commit version guard</td></tr>
+          <tr><td><span class="mono">theoproject release [snippet]</span></td><td>this repo</td><td>Tag and push snippet versions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Run it</h2>
+      <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv tool install git+ssh://git@github.com/Theogalh/theoproject.git
+mkdir invoices &amp;&amp; cd invoices
+theoproject create invoices --fastapi --redis --design \
+  --user inv --domain invoices.theogalh.dev
+theoproject add storage</code></pre></div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Deploy &amp; ops</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">generated workflow</div><div class="meta-value mono">.github/workflows/deploy.yml — check on PR, deploy on main</div></div>
+        <div class="meta-row"><div class="meta-label">generated unit</div><div class="meta-value mono">deploy/APPNAME.service</div></div>
+        <div class="meta-row"><div class="meta-label">generated nginx</div><div class="meta-value mono">deploy/nginx/APPNAME.conf</div></div>
+        <div class="meta-row"><div class="meta-label">app dir</div><div class="meta-value mono">/opt/APPNAME</div></div>
+        <div class="meta-row"><div class="meta-label">first deploy</div><div class="meta-value mono">bash deploy/setup.sh &lt;repo&gt; · then sudo -u &lt;user&gt; deploy/deploy.sh</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">theogalh.dev · theoproject · dark by default</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>

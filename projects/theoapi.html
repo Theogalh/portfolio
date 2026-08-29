@@ -1,67 +1,70 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>theoapi — theogalh.dev</title>
   <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="alternate" hreflang="fr" href="theoapi.html">
+  <link rel="alternate" hreflang="en" href="../en/projects/theoapi.html">
   <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 <header class="topbar">
   <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
-  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projets</a><a href="../index.html#about">À propos</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <span class="langsw"><span class="on">FR</span><a href="../en/projects/theoapi.html" hreflang="en">EN</a></span>
   <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <main class="admin-wrap">
-  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">theoapi</span></div>
+  <div class="crumbs"><a href="../index.html">Projets</a><span class="sep">/</span><span class="current">theoapi</span></div>
   <div class="page-head">
-    <p class="eyebrow">theogalh.dev · project · 07</p>
-    <h1 class="display">One account for every app.</h1>
-    <p class="sub">TheoAPI is the identity layer under the rest: sign in once, and each app decides what that account may do.</p>
+    <p class="eyebrow">theogalh.dev · projet · 07</p>
+    <h1 class="display">Un seul compte pour toutes les applications.</h1>
+    <p class="sub">TheoAPI est la couche d’identité sous tout le reste : on se connecte une fois, et chaque application décide de ce que ce compte a le droit de faire.</p>
     <div class="action-row">
-      <a class="btn btn-primary" href="https://console.theogalh.dev">Open console.theogalh.dev</a>
-      <a class="btn btn-ghost" href="https://github.com/Theogalh/console_theogalh_dev">Repository</a>
+      <a class="btn btn-primary" href="https://console.theogalh.dev">Ouvrir console.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/console_theogalh_dev">Dépôt</a>
     </div>
   </div>
 
   <section class="section">
     <div class="stats-grid stagger">
-      <div class="stat-card anim-rise"><div class="stat-label">Login methods</div><div class="stat-value">3</div><div class="stat-delta muted">password · Google · Jellyfin</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Access token</div><div class="stat-value">60 min</div><div class="stat-delta muted">refresh 30 days</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">RBAC layers</div><div class="stat-value">2</div><div class="stat-delta muted">platform · per app</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Password hash</div><div class="stat-value">200k</div><div class="stat-delta muted">PBKDF2-HMAC-SHA256</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Méthodes de connexion</div><div class="stat-value">3</div><div class="stat-delta muted">mot de passe · Google · Jellyfin</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Jeton d’accès</div><div class="stat-value">60 min</div><div class="stat-delta muted">rafraîchissement 30 jours</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Couches RBAC</div><div class="stat-value">2</div><div class="stat-delta muted">plateforme · par application</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Hachage du mot de passe</div><div class="stat-value">200k</div><div class="stat-delta muted">PBKDF2-HMAC-SHA256</div></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">What it does</h2>
-    <p class="muted" style="margin-bottom:16px">Every app on this site needs users, and none of them should have to implement login. TheoAPI issues tokens, holds accounts and roles, lets each app define its own roles and delegate admin to specific people, and gives users a console that only shows what they may open.</p>
+    <h2 class="section-title">Ce que ça fait</h2>
+    <p class="muted" style="margin-bottom:16px">Chaque application de ce site a besoin d’utilisateurs, et aucune ne devrait avoir à réimplémenter la connexion. TheoAPI émet les jetons, détient les comptes et les rôles, laisse chaque application définir ses propres rôles et déléguer l’administration à des personnes précises, et donne aux utilisateurs une console qui n’affiche que ce qu’ils ont le droit d’ouvrir.</p>
     <div class="feature-list">
-      <div class="feature"><h3>Sign in three ways</h3><p>Email and password with verification and reset, Google OAuth, or a Jellyfin login. All end in the same token pair.</p></div>
-      <div class="feature"><h3>Per-app roles</h3><p>An app registers its roles. A user can be an admin of one app without any platform rights.</p></div>
-      <div class="feature"><h3>Console</h3><p>A dashboard listing the apps your roles allow, plus admin screens for users, apps and roles.</p></div>
-      <div class="feature"><h3>Audit log</h3><p>Every app-scoped admin action is logged; platform actions are logged against the platform app.</p></div>
-      <div class="feature"><h3>API keys and bearer tokens</h3><p>Apps and scripts authenticate with a header; browsers with a cookie and CSRF token.</p></div>
-      <div class="feature"><h3>Jellyfin link</h3><p>Media-server accounts can be linked to TheoAPI accounts, so one identity spans apps and media.</p></div>
+      <div class="feature"><h3>Trois façons de se connecter</h3><p>E-mail et mot de passe avec vérification et réinitialisation, OAuth Google, ou une connexion Jellyfin. Toutes aboutissent à la même paire de jetons.</p></div>
+      <div class="feature"><h3>Rôles par application</h3><p>Une application déclare ses rôles. Un utilisateur peut être administrateur d’une application sans aucun droit sur la plateforme.</p></div>
+      <div class="feature"><h3>Console</h3><p>Un tableau de bord listant les applications que vos rôles autorisent, plus des écrans d’administration pour les utilisateurs, les applications et les rôles.</p></div>
+      <div class="feature"><h3>Journal d’audit</h3><p>Toute action d’administration liée à une application est journalisée ; les actions de plateforme sont journalisées sur l’application plateforme.</p></div>
+      <div class="feature"><h3>Clés d’API et jetons bearer</h3><p>Les applications et les scripts s’authentifient par un en-tête ; les navigateurs par un cookie et un jeton CSRF.</p></div>
+      <div class="feature"><h3>Liaison Jellyfin</h3><p>Les comptes du serveur média peuvent être reliés aux comptes TheoAPI, pour qu’une seule identité couvre les applications et les médias.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">A login, step by step</h2>
+    <h2 class="section-title">Une connexion, étape par étape</h2>
     <div class="flow">
-      <div class="step">Credentials arrive: ApiKey header, Bearer header, or the <span class="mono">theoapi_token</span> cookie.</div>
-      <div class="step">The principal is resolved; verified, deleted and forced-reset flags are checked.</div>
-      <div class="step">Platform roles are loaded from <span class="mono">principal_roles</span>.</div>
-      <div class="step">Per-app roles come from <span class="mono">user_app_roles</span> when the route is app-scoped.</div>
-      <div class="step">Cookie requests must also carry the double-submit CSRF header on unsafe methods.</div>
-      <div class="step">Access token expires after 60 minutes; refresh issues a new pair, revoking per policy.</div>
+      <div class="step">Les identifiants arrivent : en-tête ApiKey, en-tête Bearer, ou le cookie <span class="mono">theoapi_token</span>.</div>
+      <div class="step">Le principal est résolu ; les drapeaux vérifié, supprimé et réinitialisation forcée sont contrôlés.</div>
+      <div class="step">Les rôles de plateforme sont chargés depuis <span class="mono">principal_roles</span>.</div>
+      <div class="step">Les rôles par application viennent de <span class="mono">user_app_roles</span> quand la route est liée à une application.</div>
+      <div class="step">Les requêtes par cookie doivent aussi porter l’en-tête CSRF en double soumission sur les méthodes non sûres.</div>
+      <div class="step">Le jeton d’accès expire au bout de 60 minutes ; le rafraîchissement émet une nouvelle paire et révoque selon la politique.</div>
     </div>
   </section>
 
   <div class="hairline" style="margin:36px 0"></div>
-  <p class="eyebrow">how it is built</p>
+  <p class="eyebrow">sous le capot</p>
 
   <section class="section split">
     <div class="panel">
@@ -79,7 +82,7 @@
     </div>
     <div class="panel">
       <h2 class="section-title">Architecture</h2>
-      <p class="muted">One module per domain, each four layers deep. Cross-cutting concerns live in src/common.</p>
+      <p class="muted">Un module par domaine, chacun sur quatre couches. Les préoccupations transverses vivent dans src/common.</p>
       <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>src/app/       app factory, settings, router assembly
 src/common/    auth middleware · RBAC deps · CSRF · rate limit · hashing · email · Jellyfin client
 src/data/db.py all SQL, one connection per call
@@ -95,15 +98,15 @@ templates/ · sdk/theo_ui/ · scripts/migrate_db.py · scripts/seed_admin.py</co
   </section>
 
   <section class="section panel">
-    <h2 class="section-title">Decisions</h2>
+    <h2 class="section-title">Décisions</h2>
     <ul class="decisions">
-      <li><strong>Principals, not users</strong>Anything that can act is a principal: a user, a dev bearer token, an API key. Roles attach to principals, so scripts and apps get permissions without a fake user.</li>
-      <li><strong>Two RBAC layers, kept apart</strong>Platform roles (<span class="mono">super_admin · admin · user · app</span>) and per-app roles with an <span class="mono">is_admin</span> flag. <span class="mono">super_admin</span> bypasses app checks everywhere.</li>
-      <li><strong>Three doors, one token model</strong>Password, Google and Jellyfin logins all issue the same bearer/refresh pair, auto-verify, and auto-link by email or Jellyfin user id.</li>
-      <li><strong>Secrets are never stored raw</strong>Tokens and keys are sha256-hashed at rest; passwords use PBKDF2 with a random salt. Dev tokens can be injected from env for local testing only.</li>
-      <li><strong>CSRF only where cookies are</strong>Cookie auth pairs with a double-submit CSRF cookie and header. Header-based auth is exempt because it is not cookie-based.</li>
-      <li><strong>Boring schema management</strong><span class="mono">CREATE TABLE IF NOT EXISTS</span> on boot, plus an additive migration script guarded by column checks. No ORM, no migration framework.</li>
-      <li><strong>Errors have one shape</strong>Services raise <span class="mono">ValueError</span>; controllers map to HTTP. Web routes redirect to login rather than raising 401.</li>
+      <li><strong>Des principaux, pas des utilisateurs</strong>Tout ce qui peut agir est un principal : un utilisateur, un jeton bearer de développement, une clé d’API. Les rôles s’attachent aux principaux, donc les scripts et les applications obtiennent des permissions sans faux utilisateur.</li>
+      <li><strong>Deux couches RBAC, tenues séparées</strong>Les rôles de plateforme (<span class="mono">super_admin · admin · user · app</span>) et les rôles par application avec un drapeau <span class="mono">is_admin</span>. <span class="mono">super_admin</span> contourne les contrôles applicatifs partout.</li>
+      <li><strong>Trois portes, un seul modèle de jeton</strong>Les connexions par mot de passe, Google et Jellyfin émettent toutes la même paire bearer/refresh, vérifient automatiquement, et relient automatiquement par e-mail ou identifiant Jellyfin.</li>
+      <li><strong>Aucun secret n’est stocké en clair</strong>Les jetons et les clés sont hachés en sha256 au repos ; les mots de passe utilisent PBKDF2 avec un sel aléatoire. Les jetons de développement peuvent être injectés depuis l’environnement, pour les tests locaux uniquement.</li>
+      <li><strong>Du CSRF seulement là où il y a des cookies</strong>L’authentification par cookie s’accompagne d’un cookie et d’un en-tête CSRF en double soumission. L’authentification par en-tête en est dispensée, puisqu’elle ne repose pas sur les cookies.</li>
+      <li><strong>Gestion de schéma sans surprise</strong><span class="mono">CREATE TABLE IF NOT EXISTS</span> au démarrage, plus un script de migration additif protégé par des contrôles de colonnes. Pas d’ORM, pas de framework de migration.</li>
+      <li><strong>Les erreurs ont une seule forme</strong>Les services lèvent <span class="mono">ValueError</span> ; les contrôleurs les traduisent en HTTP. Les routes web redirigent vers la connexion plutôt que de lever un 401.</li>
     </ul>
   </section>
 
@@ -111,7 +114,7 @@ templates/ · sdk/theo_ui/ · scripts/migrate_db.py · scripts/seed_admin.py</co
     <h2 class="section-title">API</h2>
     <div class="ledger-scroll">
       <table class="ledger">
-        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <thead><tr><th>Méthode</th><th>Chemin</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><span class="method post">POST</span></td><td>/auth/register</td><td>Create an account, send verification</td></tr>
           <tr><td><span class="method post">POST</span></td><td>/auth/login</td><td>Password login → bearer + refresh, sets cookie</td></tr>
@@ -130,7 +133,7 @@ templates/ · sdk/theo_ui/ · scripts/migrate_db.py · scripts/seed_admin.py</co
 
   <section class="section split">
     <div class="panel">
-      <h2 class="section-title">Run it</h2>
+      <h2 class="section-title">Le lancer</h2>
       <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>make install
 cp .env.example .env
 make migrate
@@ -138,7 +141,7 @@ make dev
 make seed-admin USER_ID=user:your-id</code></pre></div>
     </div>
     <div class="panel">
-      <h2 class="section-title">Deploy &amp; ops</h2>
+      <h2 class="section-title">Déploiement &amp; ops</h2>
       <div class="meta-grid">
         <div class="meta-row"><div class="meta-label">hosts</div><div class="meta-value mono">console.theogalh.dev · api.console.theogalh.dev</div></div>
         <div class="meta-row"><div class="meta-label">db</div><div class="meta-value mono">./data/theoapi.db</div></div>
@@ -149,7 +152,7 @@ make seed-admin USER_ID=user:your-id</code></pre></div>
     </div>
   </section>
 </main>
-<footer class="footer">theogalh.dev · theoapi · dark by default</footer>
+<footer class="footer">theogalh.dev · theoapi · sombre par défaut</footer>
 <script src="../assets/site.js" defer></script>
 </body>
 </html>

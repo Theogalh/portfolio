@@ -1,67 +1,70 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>self-pages — theogalh.dev</title>
   <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="alternate" hreflang="fr" href="self-pages.html">
+  <link rel="alternate" hreflang="en" href="../en/projects/self-pages.html">
   <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
   <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
 <header class="topbar">
   <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
-  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projets</a><a href="../index.html#about">À propos</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <span class="langsw"><span class="on">FR</span><a href="../en/projects/self-pages.html" hreflang="en">EN</a></span>
   <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <main class="admin-wrap">
-  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">self-pages</span></div>
+  <div class="crumbs"><a href="../index.html">Projets</a><span class="sep">/</span><span class="current">self-pages</span></div>
   <div class="page-head">
-    <p class="eyebrow">theogalh.dev · project · 08</p>
-    <h1 class="display">GitHub Pages, on my own box, for private repos.</h1>
-    <p class="sub">Push to a private repo and the static site is live seconds later. A webhook pulls, a symlink swaps, nginx serves. This page is deployed by it.</p>
+    <p class="eyebrow">theogalh.dev · projet · 08</p>
+    <h1 class="display">GitHub Pages, sur ma machine, pour des dépôts privés.</h1>
+    <p class="sub">Poussez sur un dépôt privé et le site statique est en ligne quelques secondes plus tard. Un webhook tire, un lien symbolique bascule, nginx sert. Cette page est déployée par lui.</p>
     <div class="action-row">
-      <a class="btn btn-primary" href="https://pages.theogalh.dev">Open pages.theogalh.dev</a>
-      <a class="btn btn-ghost" href="https://github.com/Theogalh/self-pages">Repository</a>
+      <a class="btn btn-primary" href="https://pages.theogalh.dev">Ouvrir pages.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/self-pages">Dépôt</a>
     </div>
   </div>
 
   <section class="section">
     <div class="stats-grid stagger">
-      <div class="stat-card anim-rise"><div class="stat-label">Swap</div><div class="stat-value">1 link</div><div class="stat-delta muted">ln -sfn, one syscall</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Fallback</div><div class="stat-value">10 min</div><div class="stat-delta muted">systemd timer, all repos</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Releases kept</div><div class="stat-value">3</div><div class="stat-delta muted">older ones purged</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Admin login</div><div class="stat-value">SSO</div><div class="stat-delta muted">theoapi · oauth + pkce</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Bascule</div><div class="stat-value">1 lien</div><div class="stat-delta muted">ln -sfn, un seul appel système</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Filet de secours</div><div class="stat-value">10 min</div><div class="stat-delta muted">timer systemd, tous les dépôts</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Versions conservées</div><div class="stat-value">3</div><div class="stat-delta muted">les plus anciennes sont purgées</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Connexion admin</div><div class="stat-value">SSO</div><div class="stat-delta muted">theoapi · oauth + pkce</div></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">What it does</h2>
-    <p class="muted" style="margin-bottom:16px">GitHub Pages does not serve private repositories on a personal plan, and I did not want a build step or a third party in the loop for a handful of static sites. self-pages is the smallest thing that works: GitHub tells it a repo moved, it clones the new commit next to the old one, and flips a symlink. nginx never sees a half-written directory.</p>
+    <h2 class="section-title">Ce que ça fait</h2>
+    <p class="muted" style="margin-bottom:16px">GitHub Pages ne sert pas les dépôts privés sur un forfait personnel, et je ne voulais ni étape de build ni tiers dans la boucle pour une poignée de sites statiques. self-pages est la plus petite chose qui marche : GitHub lui signale qu’un dépôt a bougé, il clone le nouveau commit à côté de l’ancien, et bascule un lien symbolique. nginx ne voit jamais un dossier à moitié écrit.</p>
     <div class="feature-list">
-      <div class="feature"><h3>Private repos, public sites</h3><p>A deploy key per repo. The source stays private, the built HTML is served over TLS at <span class="mono">pages.theogalh.dev/&lt;site&gt;/</span>.</p></div>
-      <div class="feature"><h3>Atomic releases</h3><p>Each deploy is a fresh shallow clone in <span class="mono">releases/&lt;timestamp&gt;</span>. <span class="mono">current</span> points at one of them; there is no window where a visitor sees a partial tree.</p></div>
-      <div class="feature"><h3>Signed webhooks</h3><p>Every payload is checked against the shared secret with HMAC-SHA256 before anything runs. A push on the wrong branch is acknowledged and ignored.</p></div>
-      <div class="feature"><h3>Missed a hook? It catches up</h3><p>A systemd timer re-runs the deploy for every configured site every 10 minutes. A webhook lost to a restart costs latency, not correctness.</p></div>
-      <div class="feature"><h3>Admin dashboard</h3><p>Add a site, see the commit currently served, redeploy by hand, read the last deploy log in a modal. LAN only, behind SSO.</p></div>
-      <div class="feature"><h3>Self-listing index</h3><p>Every deploy regenerates the landing page from the sites that actually have a <span class="mono">current</span> symlink, so the index cannot drift from reality.</p></div>
+      <div class="feature"><h3>Dépôts privés, sites publics</h3><p>Une clé de déploiement par dépôt. La source reste privée, le HTML est servi en TLS sur <span class="mono">pages.theogalh.dev/&lt;site&gt;/</span>.</p></div>
+      <div class="feature"><h3>Versions atomiques</h3><p>Chaque déploiement est un nouveau clone superficiel dans <span class="mono">releases/&lt;timestamp&gt;</span>. <span class="mono">current</span> pointe sur l’une d’elles ; il n’existe aucune fenêtre où un visiteur voit une arborescence partielle.</p></div>
+      <div class="feature"><h3>Webhooks signés</h3><p>Chaque charge utile est vérifiée contre le secret partagé en HMAC-SHA256 avant que quoi que ce soit ne tourne. Un push sur la mauvaise branche est acquitté puis ignoré.</p></div>
+      <div class="feature"><h3>Un hook raté ? Il se rattrape</h3><p>Un timer systemd relance le déploiement de chaque site configuré toutes les 10 minutes. Un webhook perdu à cause d’un redémarrage coûte de la latence, pas de la justesse.</p></div>
+      <div class="feature"><h3>Tableau de bord admin</h3><p>Ajouter un site, voir le commit actuellement servi, redéployer à la main, lire le dernier journal de déploiement dans une fenêtre. Réseau local uniquement, derrière le SSO.</p></div>
+      <div class="feature"><h3>Index qui se recense lui-même</h3><p>Chaque déploiement régénère la page d’accueil à partir des sites qui possèdent réellement un lien <span class="mono">current</span>, donc l’index ne peut pas s’écarter de la réalité.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">A push, from GitHub to nginx</h2>
+    <h2 class="section-title">Un push, de GitHub à nginx</h2>
     <div class="flow">
-      <div class="step">GitHub sends <span class="mono">push</span> to <span class="mono">/webhook/&lt;site&gt;</span>.</div>
-      <div class="step">The signature is verified; an unknown site is a <span class="mono">404</span>.</div>
-      <div class="step">The branch is compared to the configured one, or the push is ignored.</div>
-      <div class="step">The response returns immediately; the deploy runs as a background task.</div>
-      <div class="step"><span class="mono">deploy.sh</span> takes a <span class="mono">flock</span> and shallow-clones into a new release dir.</div>
-      <div class="step"><span class="mono">ln -sfn</span> moves <span class="mono">current</span>, old releases past the third are removed, the index is rebuilt.</div>
+      <div class="step">GitHub envoie <span class="mono">push</span> sur <span class="mono">/webhook/&lt;site&gt;</span>.</div>
+      <div class="step">La signature est vérifiée ; un site inconnu donne un <span class="mono">404</span>.</div>
+      <div class="step">La branche est comparée à celle configurée, sinon le push est ignoré.</div>
+      <div class="step">La réponse part immédiatement ; le déploiement tourne en tâche de fond.</div>
+      <div class="step"><span class="mono">deploy.sh</span> prend un <span class="mono">flock</span> et fait un clone superficiel dans un nouveau dossier de version.</div>
+      <div class="step"><span class="mono">ln -sfn</span> déplace <span class="mono">current</span>, les versions au-delà de la troisième sont supprimées, l’index est reconstruit.</div>
     </div>
   </section>
 
   <div class="hairline" style="margin:36px 0"></div>
-  <p class="eyebrow">how it is built</p>
+  <p class="eyebrow">sous le capot</p>
 
   <section class="section split">
     <div class="panel">
@@ -78,7 +81,7 @@
     </div>
     <div class="panel">
       <h2 class="section-title">Architecture</h2>
-      <p class="muted">Two front doors, one deploy function. Neither app knows that nginx routes by path — they only know a destination directory.</p>
+      <p class="muted">Deux portes d’entrée, une seule fonction de déploiement. Aucune des deux applications ne sait que nginx route par chemin — elles ne connaissent qu’un dossier de destination.</p>
       <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>app/
   main.py      webhook: HMAC check, branch match, dispatch
   admin.py     dashboard: list · add · redeploy · logs
@@ -97,16 +100,16 @@ nginx/site.conf.example
   </section>
 
   <section class="section panel">
-    <h2 class="section-title">Decisions</h2>
+    <h2 class="section-title">Décisions</h2>
     <ul class="decisions">
-      <li><strong>Symlink swap, not <span class="mono">git pull</span> in place</strong>A pull rewrites the served directory file by file. A clone next to it plus <span class="mono">ln -sfn</span> means the switch is a single atomic operation, and rolling back is pointing the link at the previous release.</li>
-      <li><strong>The webhook answers before it deploys</strong>The handler returns <span class="mono">{"status":"deploying"}</span> and runs the clone as a background task. GitHub gets its response inside the timeout no matter how slow the clone is.</li>
-      <li><strong>A timer behind the webhook</strong>Webhooks are best effort: a service restart or a network blip drops one silently. The fallback re-deploys every site on a schedule, so the worst case is a ten minute delay rather than a stale site nobody notices.</li>
-      <li><strong><span class="mono">flock</span> per destination</strong>A hook and the timer can fire at the same moment. The second one finds the lock taken, prints why, and exits zero — concurrent deploys of the same site are impossible, not merely unlikely.</li>
-      <li><strong>Path routing with a dynamic root</strong>One vhost, one certificate, a new site is a directory. <span class="mono">alias</span> plus <span class="mono">try_files</span> mishandles the index when the captured path is empty, so the site name goes into <span class="mono">root</span> and a <span class="mono">rewrite</span> strips the prefix; the index is resolved through <span class="mono">try_files</span> rather than the <span class="mono">index</span> directive, which would restart resolution from the un-rewritten URI.</li>
-      <li><strong>The admin is not on the internet</strong>It can write config and run git as the deploy user, so it is reachable only from the LAN, over the LXC's own IP. The public vhost never proxies it, and <span class="mono">admin</span> is a reserved site name.</li>
-      <li><strong>SSO instead of a second password</strong>Login goes through TheoAPI with PKCE, and the app checks for its own admin role in the userinfo response. One account, one place to revoke.</li>
-      <li><strong>Config is a JSON file, re-read every time</strong>Adding a site from the dashboard rewrites <span class="mono">repos.json</span>; editing it by hand over SSH works just as well. No database for a dozen rows.</li>
+      <li><strong>Bascule de lien symbolique, pas de <span class="mono">git pull</span> sur place</strong>Un pull réécrit le dossier servi fichier par fichier. Un clone à côté plus <span class="mono">ln -sfn</span> fait de la bascule une seule opération atomique, et revenir en arrière revient à pointer le lien sur la version précédente.</li>
+      <li><strong>Le webhook répond avant de déployer</strong>Le gestionnaire renvoie <span class="mono">{"status":"deploying"}</span> et lance le clone en tâche de fond. GitHub obtient sa réponse dans le délai imparti quelle que soit la lenteur du clone.</li>
+      <li><strong>Un timer derrière le webhook</strong>Les webhooks fonctionnent au mieux : un redémarrage de service ou un hoquet réseau en perd un sans bruit. Le filet de secours redéploie chaque site à intervalle régulier, donc le pire cas est un retard de dix minutes plutôt qu’un site périmé que personne ne remarque.</li>
+      <li><strong>Un <span class="mono">flock</span> par destination</strong>Un hook et le timer peuvent partir au même instant. Le second trouve le verrou pris, dit pourquoi, et sort avec le code zéro — deux déploiements simultanés du même site sont impossibles, pas seulement improbables.</li>
+      <li><strong>Routage par chemin avec une racine dynamique</strong>Un seul vhost, un seul certificat, un nouveau site n’est qu’un dossier. <span class="mono">alias</span> plus <span class="mono">try_files</span> gère mal l’index quand le chemin capturé est vide, donc le nom du site passe dans <span class="mono">root</span> et un <span class="mono">rewrite</span> retire le préfixe ; l’index est résolu par <span class="mono">try_files</span> plutôt que par la directive <span class="mono">index</span>, qui relancerait la résolution depuis l’URI non réécrite.</li>
+      <li><strong>L’admin n’est pas sur internet</strong>Elle peut écrire la configuration et lancer git sous l’utilisateur de déploiement, donc elle n’est joignable que depuis le réseau local, par l’IP propre du LXC. Le vhost public ne la relaie jamais, et <span class="mono">admin</span> est un nom de site réservé.</li>
+      <li><strong>Du SSO plutôt qu’un second mot de passe</strong>La connexion passe par TheoAPI avec PKCE, et l’application cherche son propre rôle admin dans la réponse userinfo. Un seul compte, un seul endroit où révoquer.</li>
+      <li><strong>La configuration est un fichier JSON, relu à chaque fois</strong>Ajouter un site depuis le tableau de bord réécrit <span class="mono">repos.json</span> ; l’éditer à la main en SSH marche tout aussi bien. Pas de base de données pour une douzaine de lignes.</li>
     </ul>
   </section>
 
@@ -114,7 +117,7 @@ nginx/site.conf.example
     <h2 class="section-title">API</h2>
     <div class="ledger-scroll">
       <table class="ledger">
-        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <thead><tr><th>Méthode</th><th>Chemin</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><span class="method post">POST</span></td><td>/webhook/{site}</td><td>GitHub push hook · HMAC-SHA256 · 401 bad signature · 404 unknown site</td></tr>
           <tr><td><span class="method get">GET</span></td><td>/health</td><td>Liveness of the webhook service</td></tr>
@@ -130,7 +133,7 @@ nginx/site.conf.example
 
   <section class="section split">
     <div class="panel">
-      <h2 class="section-title">Run it</h2>
+      <h2 class="section-title">Le lancer</h2>
       <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env && cp repos.example.json repos.json
@@ -138,7 +141,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8001
 uvicorn app.admin:app --host 0.0.0.0 --port 8090</code></pre></div>
     </div>
     <div class="panel">
-      <h2 class="section-title">Deploy &amp; ops</h2>
+      <h2 class="section-title">Déploiement &amp; ops</h2>
       <div class="meta-grid">
         <div class="meta-row"><div class="meta-label">user · dir</div><div class="meta-value mono">self-pages · /opt/self-pages/app-src</div></div>
         <div class="meta-row"><div class="meta-label">units</div><div class="meta-value mono">webhook · admin · fallback.timer</div></div>
@@ -150,7 +153,7 @@ uvicorn app.admin:app --host 0.0.0.0 --port 8090</code></pre></div>
     </div>
   </section>
 </main>
-<footer class="footer">theogalh.dev · self-pages · dark by default</footer>
+<footer class="footer">theogalh.dev · self-pages · sombre par défaut</footer>
 <script src="../assets/site.js" defer></script>
 </body>
 </html>
