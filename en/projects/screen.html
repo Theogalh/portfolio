@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>screen — theogalh.dev</title>
+  <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<main class="admin-wrap">
+  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">screen</span></div>
+  <div class="page-head">
+    <p class="eyebrow">theogalh.dev · project · 02</p>
+    <h1 class="display">Drop a screenshot. Get a link.</h1>
+    <p class="sub">Upload, annotate in the browser, choose who can see it. Nothing else.</p>
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://screen.theogalh.dev">Open screen.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/screen">Repository</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="stats-grid stagger">
+      <div class="stat-card anim-rise"><div class="stat-label">Upload limit</div><div class="stat-value">10/min</div><div class="stat-delta muted">per IP</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Cache</div><div class="stat-value">1 year</div><div class="stat-delta muted">immutable by id</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Storage</div><div class="stat-value">S3</div><div class="stat-delta muted">+ Cloudflare CDN</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Retention</div><div class="stat-value">setting</div><div class="stat-delta muted">days, cleaned on expiry</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What it does</h2>
+    <p class="muted" style="margin-bottom:16px">Screenshots pasted into chats end up as attachments nobody can find again. screen turns them into links: drop the image, get a URL that loads fast from a CDN, draw on it if you need to point at something, and flip it private when it is not for everyone.</p>
+    <div class="feature-list">
+      <div class="feature"><h3>Drag and drop</h3><p>A single dropzone. Files are validated server-side and rejected with a clear message when they are not images.</p></div>
+      <div class="feature"><h3>Thumbnails</h3><p>Every screenshot gets a thumbnail for the gallery, served with the same long-lived cache headers.</p></div>
+      <div class="feature"><h3>Annotate</h3><p>Open a screenshot in the canvas, draw, save. The annotated version keeps its own URL, and the drawing can be reopened later.</p></div>
+      <div class="feature"><h3>Public or private</h3><p>A toggle per screenshot. Private screenshots are only reachable by their owner.</p></div>
+      <div class="feature"><h3>Delete when done</h3><p>One call removes the object, the thumbnail, the canvas and the metadata.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">From drop to link</h2>
+    <div class="flow">
+      <div class="step">Drop an image on the page.</div>
+      <div class="step">The server validates it, uploads to object storage, builds a thumbnail.</div>
+      <div class="step">Metadata (id, name, visibility, dates) goes to Redis.</div>
+      <div class="step">The gallery shows the thumbnail; the link points at the CDN.</div>
+      <div class="step">Optional: open the canvas, draw, save ops + rendered image.</div>
+      <div class="step">After the retention window, everything for that id is removed.</div>
+    </div>
+  </section>
+
+  <div class="hairline" style="margin:36px 0"></div>
+  <p class="eyebrow">how it is built</p>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Stack</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">scaffold</div><div class="meta-value mono">theoproject --fastapi --redis</div></div>
+        <div class="meta-row"><div class="meta-label">api</div><div class="meta-value mono">FastAPI · pydantic-settings · slowapi</div></div>
+        <div class="meta-row"><div class="meta-label">files</div><div class="meta-value mono">theolib/storage snippet — S3 + Cloudflare CDN + metadata store</div></div>
+        <div class="meta-row"><div class="meta-label">metadata</div><div class="meta-value mono">Redis, keys built in cache/keys.py</div></div>
+        <div class="meta-row"><div class="meta-label">ui</div><div class="meta-value mono">Jinja2 SSR · canvas · shared design tokens</div></div>
+        <div class="meta-row"><div class="meta-label">deploy</div><div class="meta-value mono">systemd · nginx · Ubuntu LXC</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Architecture</h2>
+      <p class="muted">A standard theoproject layout. The screenshots module is the only business module; storage comes from a versioned snippet.</p>
+      <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>app/          config · main (lifespan opens Redis + uploader) · router
+modules/
+  health/     GET /health — Redis ping
+  screenshots/
+    controller.py   routes, rate limits, HTTP mapping
+    service.py      upload · list · canvas · visibility · delete
+    schemas.py      ScreenshotResponse, CanvasSaveRequest, …
+theolib/storage/    snippet: S3 uploader, image validation, CDN URLs
+cache/        RedisClient + key builder
+web/          Jinja2 SSR, GET /
+static/ templates/ deploy/ .github/</code></pre></div></div>
+    </div>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">Decisions</h2>
+    <ul class="decisions">
+      <li><strong>Constructor injection, no globals</strong>Services receive the uploader, the store and the retention setting. Controllers build the service per request from <span class="mono">app.state</span>.</li>
+      <li><strong>Validation is a 422, not a 500</strong><span class="mono">ImageValidationError</span> from the storage snippet maps to a 422 with the reason. Bad files never reach the bucket.</li>
+      <li><strong>Annotations are data, then pixels</strong>The canvas is saved as an op list plus a rendered image. The op list makes it editable; the image makes it shareable.</li>
+      <li><strong>Immutable by construction</strong>The id is the cache key, so <span class="mono">Cache-Control: public, max-age=31536000, immutable</span> is safe. A changed image is a new id.</li>
+      <li><strong>Storage is a snippet, not a copy</strong><span class="mono">theolib/storage</span> is installed and pinned by theoproject; fixes are released as a tag and pulled with <span class="mono">theoproject update storage</span>.</li>
+    </ul>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">API</h2>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method post">POST</span></td><td>/api/screenshots/</td><td>Upload; <span class="mono">public</span> form field or query, default true · 10/min</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/</td><td>List, <span class="mono">limit</span> / <span class="mono">offset</span></td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/{id}</td><td>Metadata</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/{id}/image</td><td>Original, immutable cache</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/{id}/thumbnail</td><td>Thumbnail, immutable cache</td></tr>
+          <tr><td><span class="method patch">PATCH</span></td><td>/api/screenshots/{id}/visibility</td><td>Set public / private</td></tr>
+          <tr><td><span class="method put">PUT</span></td><td>/api/screenshots/{id}/canvas</td><td>Save ops + image_data</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/{id}/canvas</td><td>Ops for re-editing</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/screenshots/{id}/canvas/image</td><td>Rendered annotated image</td></tr>
+          <tr><td><span class="method del">DELETE</span></td><td>/api/screenshots/{id}</td><td>Remove everything for this id</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Run it</h2>
+      <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv sync
+docker run -p 6379:6379 redis:alpine
+cp .env.example .env          <span class="c-com"># REDIS_URL, S3 + CDN settings</span>
+uv run uvicorn app.main:app --reload</code></pre></div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Deploy &amp; ops</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">user · dir</div><div class="meta-value mono">screen · /opt/screen</div></div>
+        <div class="meta-row"><div class="meta-label">unit</div><div class="meta-value mono">screen.service, port 8000</div></div>
+        <div class="meta-row"><div class="meta-label">deploy</div><div class="meta-value mono">push to master → GitHub Actions → deploy.sh over SSH</div></div>
+        <div class="meta-row"><div class="meta-label">first run</div><div class="meta-value mono">bash deploy/setup.sh &lt;repo&gt; master</div></div>
+        <div class="meta-row"><div class="meta-label">secrets</div><div class="meta-value mono">SSH_HOST · SSH_USER · SSH_PRIVATE_KEY · SSH_PORT</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">theogalh.dev · screen · dark by default</footer>
+<script src="../../assets/site.js" defer></script>
+</body>
+</html>
