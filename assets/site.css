@@ -1,0 +1,24 @@
+/* Page-specific styles. Base design system: https://theogalh.github.io/design-system/styles.css */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-bottom:40px}
+.hero-art{position:relative;display:flex;justify-content:center}
+.hero-art img{width:100%;max-width:520px;height:auto;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.hero-art::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:60%;height:1px;background:var(--line-soft)}
+.contact{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.contact a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:var(--r-md);color:var(--text);text-decoration:none;font-size:14px;font-weight:500;transition:border-color .15s cubic-bezier(.2,.8,.2,1),background .15s cubic-bezier(.2,.8,.2,1)}
+.contact a:hover{border-color:var(--peri);background:var(--panel-2)}
+.contact a .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.app-card .stack{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--faint);margin:0 0 10px}
+.feature-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.feature{padding:18px;border:1px solid var(--line-soft);border-radius:var(--r-lg);background:var(--panel)}
+.feature h3{font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:15px;margin:0 0 6px}
+.feature p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;counter-reset:step}
+.flow .step{position:relative;padding:16px 16px 16px 44px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--panel);color:var(--muted);font-size:14px;line-height:1.5}
+.flow .step::before{counter-increment:step;content:counter(step,decimal-leading-zero);position:absolute;left:14px;top:16px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--peri)}
+.decisions{margin:0;padding:0;list-style:none}
+.decisions li{padding:14px 0;border-bottom:1px solid var(--line-soft);font-size:14px;line-height:1.55;color:var(--muted)}
+.decisions li:last-child{border-bottom:0}
+.decisions li strong{color:var(--text);font-weight:600;display:block;margin-bottom:2px}
+.crumbs{margin-bottom:18px}
+.tree pre{font-size:12.5px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.hero-art{order:-1}.hero-art img{max-width:360px}}

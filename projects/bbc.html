@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bbc — theogalh.dev</title>
+  <link rel="icon" href="https://theogalh.github.io/design-system/assets/logo.svg">
+  <link rel="stylesheet" href="https://theogalh.github.io/design-system/styles.css">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+<main class="admin-wrap">
+  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">bbc</span></div>
+  <div class="page-head">
+    <p class="eyebrow">theogalh.dev · project · 06</p>
+    <h1 class="display">A leaderboard for a fighting game crew.</h1>
+    <p class="sub">Brésil Bagarre Club. Report your sets, watch your rating move, run a bracket on tournament night.</p>
+    <div class="action-row">
+      <a class="btn btn-primary" href="https://bbc.theogalh.dev">Open bbc.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/BresilBagarreClub">Repository</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="stats-grid stagger">
+      <div class="stat-card anim-rise"><div class="stat-label">Games</div><div class="stat-value">3</div><div class="stat-delta muted">2XKO · SF6 · Tekken 8</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Elo K</div><div class="stat-value">32</div><div class="stat-delta muted">start 1000 · floor 0</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Bracket size</div><div class="stat-value">2–32</div><div class="stat-delta muted">single or double elim</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">CI gate</div><div class="stat-value">tests</div><div class="stat-delta muted">red run blocks deploy</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">What it does</h2>
+    <p class="muted" style="margin-bottom:16px">Offline sets deserve a ranking that means something. BBC keeps one rating per player per game, asks the opponent to confirm each result, shows match history with the rating delta, and turns a list of players into a seeded bracket when the crew runs a tournament.</p>
+    <div class="feature-list">
+      <div class="feature"><h3>Per-game and global boards</h3><p>A rating per player per game, and a global leaderboard across all three.</p></div>
+      <div class="feature"><h3>Confirmed results</h3><p>A match is submitted by one player and stays pending until the opponent approves it. Both get notified live.</p></div>
+      <div class="feature"><h3>Profiles</h3><p>Per-game stats, full match history with the delta, and head-to-head records against any player.</p></div>
+      <div class="feature"><h3>Tournaments</h3><p>Pick 2 to 32 players, single or double elimination, best-of-N. Seeded by rating; byes resolve instantly.</p></div>
+      <div class="feature"><h3>Grand final reset</h3><p>In double elimination the losers' champion must beat the winners' champion twice.</p></div>
+      <div class="feature"><h3>Accounts</h3><p>Players link an account to submit, approve and receive notifications.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">A set, from result to rating</h2>
+    <div class="flow">
+      <div class="step">A player submits game, opponent and winner.</div>
+      <div class="step">The match is stored as pending; the opponent is notified over SSE.</div>
+      <div class="step">The opponent approves (or rejects) from their account.</div>
+      <div class="step">Approval replays the match through <span class="mono">submit_match</span>.</div>
+      <div class="step">Elo expected score and delta are computed for both players.</div>
+      <div class="step">History, profiles and both leaderboards update.</div>
+    </div>
+  </section>
+
+  <div class="hairline" style="margin:36px 0"></div>
+  <p class="eyebrow">how it is built</p>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Stack</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">backend</div><div class="meta-value mono">FastAPI · Python 3.11 · uv</div></div>
+        <div class="meta-row"><div class="meta-label">db</div><div class="meta-value mono">SQLite, raw sqlite3, no ORM</div></div>
+        <div class="meta-row"><div class="meta-label">layers</div><div class="meta-value mono">controllers → services → datastore</div></div>
+        <div class="meta-row"><div class="meta-label">rating</div><div class="meta-value mono">Elo · K 32 · scale 400 · floor 0</div></div>
+        <div class="meta-row"><div class="meta-label">live</div><div class="meta-value mono">SSE per account for notifications</div></div>
+        <div class="meta-row"><div class="meta-label">front</div><div class="meta-value mono">plain HTML/JS · Tailwind</div></div>
+        <div class="meta-row"><div class="meta-label">tests</div><div class="meta-value mono">pytest, isolated SQLite per test · ruff</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Architecture</h2>
+      <p class="muted">Services carry the rules; datastore modules carry the SQL. No ORM in between.</p>
+      <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>app/
+  controllers/   FastAPI routes
+  services/      account · games · match · mmr · pending · session · tournament
+  datastore/     one module per table group, raw SQL
+  models/        pydantic schemas
+  sse.py         per-account event push
+  database.py    connection + schema
+  static/        HTML/JS pages, Tailwind
+deploy/          setup.sh · deploy.sh · nginx/bresil-bagarre.conf
+tests/</code></pre></div></div>
+    </div>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">Decisions</h2>
+    <ul class="decisions">
+      <li><strong>Approval reuses the write path</strong>Approving a pending match calls the same <span class="mono">submit_match</span> as a direct submission, with <span class="mono">force=True</span>. One place computes ratings.</li>
+      <li><strong>Brackets are pre-linked</strong>All matches are created up front as shells; each knows its next match and slot, and in double elimination where its loser drops. Advancing is a pointer update.</li>
+      <li><strong>Byes never touch ratings</strong>Round-one byes complete on creation and advance the player without a global match.</li>
+      <li><strong>Tournament sets feed Elo, best-effort</strong>A completed series is submitted as a regular match; a rating error never breaks the bracket.</li>
+      <li><strong>Seeding is standard</strong>Seeds 1 and 2 can only meet in the final; order is generated recursively for the next power of two.</li>
+      <li><strong>Tests gate production</strong>Each test runs on its own SQLite file with no network. Deploy runs only after lint and tests pass on master.</li>
+    </ul>
+  </section>
+
+  <section class="section panel">
+    <h2 class="section-title">API</h2>
+    <div class="ledger-scroll">
+      <table class="ledger">
+        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="method get">GET</span></td><td>/api/games</td><td>List games</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/players</td><td>List players</td></tr>
+          <tr><td><span class="method post">POST</span></td><td>/api/players</td><td>Create player</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/players/{id}</td><td>Profile + per-game MMR</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/players/{id}/matches</td><td>Match history</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/leaderboard/global</td><td>Global leaderboard</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/leaderboard/{game}</td><td>Per-game leaderboard</td></tr>
+          <tr><td><span class="method post">POST</span></td><td>/api/matches</td><td>Submit a match result</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/matches/recent</td><td>Recent matches, all games</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/api/matches/{game}</td><td>Recent matches for one game</td></tr>
+          <tr><td><span class="method get">GET</span></td><td>/health</td><td>Health check</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split">
+    <div class="panel">
+      <h2 class="section-title">Run it</h2>
+      <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv sync
+uv run uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uv run pytest --cov=app
+uv run ruff check .</code></pre></div>
+    </div>
+    <div class="panel">
+      <h2 class="section-title">Deploy &amp; ops</h2>
+      <div class="meta-grid">
+        <div class="meta-row"><div class="meta-label">user · dir</div><div class="meta-value mono">bbc · /opt/bresil-bagarre</div></div>
+        <div class="meta-row"><div class="meta-label">port</div><div class="meta-value mono">8000, nginx in a separate container</div></div>
+        <div class="meta-row"><div class="meta-label">ci</div><div class="meta-value mono">.github/workflows/ci.yml — lint + tests, then deploy on master</div></div>
+        <div class="meta-row"><div class="meta-label">first run</div><div class="meta-value mono">bash deploy/setup.sh &lt;repo&gt; main</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="footer">theogalh.dev · bbc · dark by default</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
