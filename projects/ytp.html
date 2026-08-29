@@ -13,58 +13,58 @@
 <body>
 <header class="topbar">
   <a class="wordmark" href="../index.html">theogalh<span class="dot"></span></a>
-  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projects</a><a href="../index.html#about">About</a><a href="https://github.com/Theogalh">GitHub</a></nav>
+  <nav class="nav collapsible"><a href="../index.html#projects" class="active">Projets</a><a href="../index.html#about">À propos</a><a href="https://github.com/Theogalh">GitHub</a></nav>
   <span class="langsw"><span class="on">FR</span><a href="../en/projects/ytp.html" hreflang="en">EN</a></span>
   <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <main class="admin-wrap">
-  <div class="crumbs"><a href="../index.html">Projects</a><span class="sep">/</span><span class="current">ytp</span></div>
+  <div class="crumbs"><a href="../index.html">Projets</a><span class="sep">/</span><span class="current">ytp</span></div>
   <div class="page-head">
-    <p class="eyebrow">theogalh.dev · project · 03</p>
-    <h1 class="display">Paste a URL. Pick a format. Download.</h1>
-    <p class="sub">A video downloader with trimming, live progress, and an MCP server so an assistant can use it too.</p>
+    <p class="eyebrow">theogalh.dev · projet · 03</p>
+    <h1 class="display">Collez une URL. Choisissez un format. Téléchargez.</h1>
+    <p class="sub">Un téléchargeur de vidéos avec découpe, progression en direct, et un serveur MCP pour qu’un assistant puisse s’en servir aussi.</p>
     <div class="action-row">
-      <a class="btn btn-primary" href="https://ytp.theogalh.dev">Open ytp.theogalh.dev</a>
-      <a class="btn btn-ghost" href="https://github.com/Theogalh/ytp-downloader">Repository</a>
+      <a class="btn btn-primary" href="https://ytp.theogalh.dev">Ouvrir ytp.theogalh.dev</a>
+      <a class="btn btn-ghost" href="https://github.com/Theogalh/ytp-downloader">Dépôt</a>
     </div>
   </div>
 
   <section class="section">
     <div class="stats-grid stagger">
       <div class="stat-card anim-rise"><div class="stat-label">Formats</div><div class="stat-value">4</div><div class="stat-delta muted">mp3 · m4a · mp4 · webm</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Progress</div><div class="stat-value">SSE</div><div class="stat-delta muted">500 ms refresh</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Rate limits</div><div class="stat-value">20 / 10</div><div class="stat-delta muted">info · downloads per min</div></div>
-      <div class="stat-card anim-rise"><div class="stat-label">Agent</div><div class="stat-value">MCP</div><div class="stat-delta muted">3 tools</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Progression</div><div class="stat-value">SSE</div><div class="stat-delta muted">rafraîchi toutes les 500 ms</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Limites de débit</div><div class="stat-value">20 / 10</div><div class="stat-delta muted">info · téléchargements par minute</div></div>
+      <div class="stat-card anim-rise"><div class="stat-label">Agent</div><div class="stat-value">MCP</div><div class="stat-delta muted">3 outils</div></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">What it does</h2>
-    <p class="muted" style="margin-bottom:16px">Most downloaders make you wait on a spinner and give you the whole file. ytp analyses the URL first, lets you choose audio or video and a segment, runs the job in the background and tells you when the file is ready. The same engine is exposed to Claude through MCP.</p>
+    <h2 class="section-title">Ce que ça fait</h2>
+    <p class="muted" style="margin-bottom:16px">La plupart des téléchargeurs vous font patienter devant un spinner et vous rendent le fichier entier. ytp analyse d’abord l’URL, vous laisse choisir l’audio ou la vidéo et un segment, lance le travail en arrière-plan et vous prévient quand le fichier est prêt. Le même moteur est exposé à Claude via MCP.</p>
     <div class="feature-list">
-      <div class="feature"><h3>Analyse first</h3><p>Paste a URL and get the title, duration and available formats before committing to a download.</p></div>
-      <div class="feature"><h3>Audio or video</h3><p>mp3 and m4a for audio, mp4 and webm for video. The format id comes straight from the analysis.</p></div>
-      <div class="feature"><h3>Trim</h3><p>Set a start and an end time to keep only the part you want. The cut happens server-side.</p></div>
-      <div class="feature"><h3>Live progress</h3><p>The page subscribes to the job and updates until the file is ready or the job fails.</p></div>
-      <div class="feature"><h3>From an assistant</h3><p>Three MCP tools: get info for a plain download, open the trim editor to choose, download and get a URL back.</p></div>
-      <div class="feature"><h3>Cleaned up</h3><p>Files live under the job id and are removed after retention. A vanished file is reported as such, not as an error.</p></div>
+      <div class="feature"><h3>Analyser d’abord</h3><p>Collez une URL et obtenez le titre, la durée et les formats disponibles avant de lancer quoi que ce soit.</p></div>
+      <div class="feature"><h3>Audio ou vidéo</h3><p>mp3 et m4a pour l’audio, mp4 et webm pour la vidéo. L’identifiant de format vient directement de l’analyse.</p></div>
+      <div class="feature"><h3>Découper</h3><p>Indiquez un début et une fin pour ne garder que le passage voulu. La coupe se fait côté serveur.</p></div>
+      <div class="feature"><h3>Progression en direct</h3><p>La page s’abonne au travail et se met à jour jusqu’à ce que le fichier soit prêt ou que le travail échoue.</p></div>
+      <div class="feature"><h3>Depuis un assistant</h3><p>Trois outils MCP : récupérer les infos pour un téléchargement simple, ouvrir l’éditeur de découpe pour choisir, télécharger et récupérer une URL.</p></div>
+      <div class="feature"><h3>Nettoyé</h3><p>Les fichiers vivent sous l’identifiant du travail et sont supprimés à l’expiration. Un fichier disparu est signalé comme tel, pas comme une erreur.</p></div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">A download, step by step</h2>
+    <h2 class="section-title">Un téléchargement, étape par étape</h2>
     <div class="flow">
-      <div class="step"><span class="mono">POST /api/videos/info</span> with the URL.</div>
-      <div class="step">Choose a format id, optionally start and end.</div>
-      <div class="step"><span class="mono">POST /api/downloads</span> returns <span class="mono">202</span> and a job id.</div>
-      <div class="step">The worker runs yt-dlp (and ffmpeg for trims) and updates the job in Redis.</div>
-      <div class="step">The page follows <span class="mono">/events</span> until status is ready or failed.</div>
-      <div class="step"><span class="mono">GET /file</span> streams the result with the right media type.</div>
+      <div class="step"><span class="mono">POST /api/videos/info</span> avec l’URL.</div>
+      <div class="step">Choisissez un identifiant de format, éventuellement un début et une fin.</div>
+      <div class="step"><span class="mono">POST /api/downloads</span> renvoie <span class="mono">202</span> et un identifiant de travail.</div>
+      <div class="step">Le worker lance yt-dlp (et ffmpeg pour les découpes) et met à jour le travail dans Redis.</div>
+      <div class="step">La page suit <span class="mono">/events</span> jusqu’au statut prêt ou échoué.</div>
+      <div class="step"><span class="mono">GET /file</span> diffuse le résultat avec le bon type de média.</div>
     </div>
   </section>
 
   <div class="hairline" style="margin:36px 0"></div>
-  <p class="eyebrow">how it is built</p>
+  <p class="eyebrow">sous le capot</p>
 
   <section class="section split">
     <div class="panel">
@@ -81,7 +81,7 @@
     </div>
     <div class="panel">
       <h2 class="section-title">Architecture</h2>
-      <p class="muted">Four modules on the theoproject skeleton. The MCP server calls the same services as the HTTP controllers.</p>
+      <p class="muted">Quatre modules sur le squelette theoproject. Le serveur MCP appelle les mêmes services que les contrôleurs HTTP.</p>
       <div class="tree"><div class="code-block"><div class="code-head">layout</div><pre><code>app/          config · main · router · limiter
 modules/
   videos/     POST /videos/info — yt-dlp extract_info
@@ -96,13 +96,13 @@ web/ templates/ static/ deploy/ .github/</code></pre></div></div>
   </section>
 
   <section class="section panel">
-    <h2 class="section-title">Decisions</h2>
+    <h2 class="section-title">Décisions</h2>
     <ul class="decisions">
-      <li><strong>A download is a job</strong>The request returns <span class="mono">202 Accepted</span> immediately. yt-dlp never runs inside an HTTP request, so a slow source cannot tie up the app.</li>
-      <li><strong>SSE rather than WebSocket</strong>Progress only flows one way. SSE is plain HTTP, reconnects on its own, and <span class="mono">X-Accel-Buffering: no</span> keeps nginx from buffering it.</li>
-      <li><strong>410 for cleaned-up files</strong>A job that existed but whose artifact was removed answers <span class="mono">410 Gone</span>; a job that is not ready answers <span class="mono">409</span>. The client can tell the cases apart.</li>
-      <li><strong>One service layer, two front doors</strong>HTTP controllers and MCP tools both call <span class="mono">VideoService</span> and <span class="mono">DownloadService</span>. Fixing a bug fixes it for both.</li>
-      <li><strong>Rate limits at the edge of the app</strong>20/min on analysis, 10/min on downloads, per IP, enforced in the controller decorators.</li>
+      <li><strong>Un téléchargement est un travail</strong>La requête renvoie <span class="mono">202 Accepted</span> immédiatement. yt-dlp ne tourne jamais dans une requête HTTP, donc une source lente ne peut pas bloquer l’application.</li>
+      <li><strong>SSE plutôt que WebSocket</strong>La progression ne circule que dans un sens. SSE, c’est du HTTP ordinaire, ça se reconnecte tout seul, et <span class="mono">X-Accel-Buffering: no</span> empêche nginx de le tamponner.</li>
+      <li><strong>410 pour les fichiers nettoyés</strong>Un travail qui a existé mais dont l’artefact a été supprimé répond <span class="mono">410 Gone</span> ; un travail qui n’est pas prêt répond <span class="mono">409</span>. Le client peut distinguer les deux cas.</li>
+      <li><strong>Une couche de service, deux portes d’entrée</strong>Les contrôleurs HTTP et les outils MCP appellent tous les deux <span class="mono">VideoService</span> et <span class="mono">DownloadService</span>. Corriger un bug le corrige des deux côtés.</li>
+      <li><strong>Limites de débit en bordure d’application</strong>20/min sur l’analyse, 10/min sur les téléchargements, par IP, appliquées dans les décorateurs de contrôleur.</li>
     </ul>
   </section>
 
@@ -110,7 +110,7 @@ web/ templates/ static/ deploy/ .github/</code></pre></div></div>
     <h2 class="section-title">API</h2>
     <div class="ledger-scroll">
       <table class="ledger">
-        <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+        <thead><tr><th>Méthode</th><th>Chemin</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><span class="method post">POST</span></td><td>/api/videos/info</td><td>Analyse a URL: title, duration, formats · 20/min</td></tr>
           <tr><td><span class="method post">POST</span></td><td>/api/downloads</td><td>Create a job: url, format_id, start_time, end_time → 202 · 10/min</td></tr>
@@ -126,14 +126,14 @@ web/ templates/ static/ deploy/ .github/</code></pre></div></div>
 
   <section class="section split">
     <div class="panel">
-      <h2 class="section-title">Run it</h2>
+      <h2 class="section-title">Le lancer</h2>
       <div class="code-block"><div class="code-head">shell <button class="copy">Copy</button></div><pre><code>uv sync
 docker run -p 6379:6379 redis:alpine
 uv run uvicorn app.main:app --reload
 <span class="c-com"># MCP client: https://ytp.theogalh.dev/mcp</span></code></pre></div>
     </div>
     <div class="panel">
-      <h2 class="section-title">Deploy &amp; ops</h2>
+      <h2 class="section-title">Déploiement &amp; ops</h2>
       <div class="meta-grid">
         <div class="meta-row"><div class="meta-label">user · dir</div><div class="meta-value mono">yd · /opt/ytp_downloader</div></div>
         <div class="meta-row"><div class="meta-label">unit</div><div class="meta-value mono">ytp_downloader.service, port 8000</div></div>
@@ -144,7 +144,7 @@ uv run uvicorn app.main:app --reload
     </div>
   </section>
 </main>
-<footer class="footer">theogalh.dev · ytp · dark by default</footer>
+<footer class="footer">theogalh.dev · ytp · sombre par défaut</footer>
 <script src="../assets/site.js" defer></script>
 </body>
 </html>
